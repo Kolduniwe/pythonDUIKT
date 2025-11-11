@@ -1,0 +1,19 @@
+from abc import ABC, abstractmethod
+
+class Performance(ABC):
+    def __init__(self, subjects, grades):
+        self.subjects = subjects
+        self.grades = grades
+
+    @abstractmethod
+    def average_grade(self):
+        pass
+
+
+class DesiredPerformance(Performance):
+    def __init__(self, subjects, desired_grades):
+        super().__init__(subjects, desired_grades)
+
+    def average_grade(self):
+        # Повертає бажаний середній бал (середнє значення бажаних оцінок)
+        return sum(self.grades) / len(self.grades) if self.grades else 0

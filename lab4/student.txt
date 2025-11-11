@@ -1,0 +1,35 @@
+class Student:
+    def __init__(self, pib, group_number, birth_date, address):
+        self.__pib = pib
+        self.__group_number = group_number
+        self.__birth_date = birth_date
+        self.__address = address
+
+    # Гетери
+    def get_pib(self):
+        return self.__pib
+
+    def get_group(self):
+        return self.__group_number
+
+    def get_birth_date(self):
+        return self.__birth_date
+
+    def get_address(self):
+        return self.__address
+
+    # Сетери
+    def set_pib(self, pib):
+        self.__pib = pib
+
+    def set_group(self, group):
+        self.__group_number = group
+
+    def set_birth_date(self, birth_date):
+        self.__birth_date = birth_date
+
+    def set_address(self, address):
+        self.__address = address
+
+    def __str__(self):
+        return f"{self.__pib} (група {self.__group_number}, нар. {self.__birth_date}, адреса: {self.__address})"

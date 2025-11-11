@@ -1,0 +1,41 @@
+from student import Student
+from performance import Performance, DesiredPerformance
+from database_manager import DatabaseManager
+
+# Реальна успішність (успадковує Performance)
+class RealPerformance(Performance):
+    def average_grade(self):
+        return sum(self.grades) / len(self.grades) if self.grades else 0
+
+
+def main():
+    db = DatabaseManager()
+    db.create_table()
+
+    # Дані студента
+    student = Student("Іваненко Іван Іванович", "КН-22", "2004-03-12", "м. Київ, вул. Шевченка, 10")
+
+    # Реальні та бажані оцінки
+    subjects = ["Математика", "Фізика", "Інформатика"]
+    real_grades = [85, 90, 80]
+    desired_grades = [95, 100, 100]
+
+    real_perf = RealPerformance(subjects, real_grades)
+    desired_perf = DesiredPerformance(subjects, desired_grades)
+
+    avg = real_perf.average_grade()
+    desired_avg = desired_perf.average_grade()
+
+    print(student)
+    print(f"Середній бал: {avg:.2f}")
+    print(f"Бажаний середній бал: {desired_avg:.2f}")
+
+    # Збереження в базу
+    db.insert_student(student, avg, desired_avg)
+    print("\nДані збережено в базу даних!\n")
+
+    db.show_all()
+
+
+if __name__ == "__main__":
+    main()
