@@ -1,0 +1,40 @@
+class Person:
+    # 1. Конструктор класу
+    def __init__(self, name, surname, grade=1):
+        self.name = name
+        self.surname = surname
+        self.grade = grade
+
+    # 2. Метод, що повертає інформацію про студента
+    def get_info(self):
+        return f"Ім'я: {self.name}, Прізвище: {self.surname}, Оцінка: {self.grade}"
+
+    # 3. Деструктор — спрацьовує при видаленні об'єкта
+    def __del__(self):
+        print(f"Ви отримали стипендію, {self.name} {self.surname}!")
+
+
+# 4. Основна частина програми
+def main():
+    # Створюємо три об'єкти класу Person
+    student1 = Person("Олег", "Коваль", 5)
+    student2 = Person("Марія", "Петренко", 4)
+    student3 = Person("Іван", "Сидоренко")  # оцінка за замовчуванням = 1
+
+    # Виводимо інформацію
+    print(student1.get_info())
+    print(student2.get_info())
+    print(student3.get_info())
+
+    # Об’являємо, що студенти отримали стипендію
+    print("\nОголошення про стипендії:")
+    del student1
+    del student2
+    del student3
+
+    # 5. Чекаємо натискання Enter, щоб побачити повідомлення деструктора
+    input("\nНатисніть Enter, щоб завершити програму...")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,11 @@
+import math
+
+# Введення даних
+x = int(input("Введіть x (остання цифра вашого номера у списку групи): "))
+t = 1
+
+# Обчислення виразу
+Z = (9 * math.pi * t + 10 * math.cos(x)) / (math.sqrt(t) - abs(math.sin(t))) * math.exp(x)
+
+# Вивід результату
+print(f"Z = {Z:.2f}")
