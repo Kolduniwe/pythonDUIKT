@@ -1,0 +1,96 @@
+# ===== КЛАС СПІВРОБІТНИК =====
+class Employee:
+    def __init__(self, name, salary, days, bonus_percent=0):
+        self._name = name                           # захищені атрибути
+        self._salary = salary
+        self._days = days
+        self._bonus_percent = bonus_percent
+
+    # --- ГЕТЕРИ ---
+    def get_name(self):
+        return self._name
+
+    def get_salary(self):
+        return self._salary
+
+    def get_days(self):
+        return self._days
+
+    def get_bonus_percent(self):
+        return self._bonus_percent
+
+    # --- СЕТЕРИ ---
+    def set_name(self, name):
+        self._name = name
+
+    def set_salary(self, salary):
+        self._salary = salary
+
+    def set_days(self, days):
+        self._days = days
+
+    def set_bonus_percent(self, bonus_percent):
+        self._bonus_percent = bonus_percent
+
+    # --- МЕТОДИ ---
+    def calculate_month_salary(self):
+        """Розрахунок зарплати за відпрацьовані дні"""
+        return (self._salary / 30) * self._days
+
+    def calculate_bonus(self):
+        """Бонус = (заробітна плата/100) * відсоток бонуса"""
+        return (self._salary / 100) * self._bonus_percent
+
+
+# ===== КЛАС МЕНЕДЖЕР (наслідує Employee) =====
+class Manager(Employee):
+    award = 500   # фіксований розмір премії для всіх менеджерів
+
+    def __init__(self, name, salary, days, subordinates, bonus_percent=0):
+        super().__init__(name, salary, days, bonus_percent)
+        self._subordinates = subordinates  # захищений атрибут
+
+    # Гетер і сетер
+    def get_subordinates(self):
+        return self._subordinates
+
+    def set_subordinates(self, subs):
+        self._subordinates = subs
+
+    # Звіт
+    def generate_report(self):
+        return f"Менеджер {self._name} керує {self._subordinates} співробітниками."
+
+    # --- ПОЛІМОРФІЗМ ---
+    def calculate_bonus(self):
+        """Бонус менеджера: стандартний бонус + (к-сть підлеглих * премія)"""
+        base_bonus = super().calculate_bonus()
+        manager_bonus = base_bonus + (self._subordinates * Manager.award)
+        return manager_bonus
+
+
+# ===== РОБОТА З ОБʼЄКТАМИ =====
+
+# Створення співробітників
+emp1 = Employee("Олег", 15000, 20, 5)
+emp2 = Employee("Марія", 12000, 18)
+
+# Створення менеджерів
+man1 = Manager("Ірина", 20000, 22, 5, 10)
+man2 = Manager("Юрій", 25000, 25, 8, 15)
+
+# Список співробітників
+employees = [emp1, emp2, man1, man2]
+
+# Демонстрація результатів
+for person in employees:
+    print("==== Працівник ====")
+    print("Ім'я:", person.get_name())
+    print("Зарплата за місяць:", round(person.calculate_month_salary(), 2))
+    print("Бонус:", round(person.calculate_bonus(), 2))
+
+    # Якщо це менеджер – виводимо звіт
+    if isinstance(person, Manager):
+        print(person.generate_report())
+
+    print()
